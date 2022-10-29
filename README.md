@@ -8,7 +8,7 @@
 
 
 ### About
-<li><a href="https://bts-for-fun.herokuapp.com/about/">Visit Heroku</a></li>
+<li><a href="https://bts-for-fun.herokuapp.com/about">Visit Heroku</a></li>
 <li><a href="https://www.pivotaltracker.com/n/projects/2607398/">Visit Privotal Tracker</a></li>
 
 
