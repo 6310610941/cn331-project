@@ -1,0 +1,24 @@
+{% extends 'bts_for_fun/layout.html' %} {% block body %}
+<br>
+<br>
+<h1>List of Stations</h1>
+
+<div class="select animated zoomIn">
+  <form align="center" action="{% url 'bts_for_fun:index' %}" method="POST">
+    {% csrf_token %}
+    <select
+      name="station"
+      id=""
+      size="1"
+      onchange="window.location.href=this.value;"
+    >
+      {% for station in stations %}
+      <option value="{%url 'bts_for_fun:stationdetail' station.id %}">
+        {{ station }}
+      </option>
+      {% endfor %}
+    </select>
+  </form>
+</div>
+
+{% endblock %}
