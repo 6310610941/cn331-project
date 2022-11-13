@@ -1,0 +1,61 @@
+{% extends 'users/layout4.html' %}
+{% block body %}
+<div class="main">
+<p class="sign" align="center">Profile</p>
+
+<p class="un">Name : {{ user.first_name }}  {{ user.last_name }}</p>
+ <p class="un">Email : {{user.email}}</p>
+
+<center>
+<p class="un1" >Information</p>
+</center>
+
+
+
+                                                                                                     
+    {% if user_form.errors %}
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <div id="form_errors">
+                {% for key, value in user_form.errors.items %}
+                    <strong>{{ value }}</strong>
+                {% endfor %}
+            </div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %}
+    <div class="form-content">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="un">Username: {{ user_form.username }} </label>
+                            <br><br>
+                        <label class="un">Email: {{ user_form.email }}</label>
+                            <br><br>
+                        <label class="un">Name: {{ user_form.first_name }}</label>
+                            <br><br>
+                        <label class="un">Surname: {{ user_form.last_name }}</label>
+                            <br><br>
+                    </div>
+                    <center>
+                    <div class="form-group">
+                        <br>
+                        <a href="{% url 'users:change_password' %}">Change Password</a><br>
+                        <button type="reset" class="submit">Reset</button>
+                        <button type="submit" class="submit">Save Changes</button>
+
+                        
+                    </div>
+                    </center>
+                    
+                </div>
+            </div>
+            <br><br>
+            
+        </form>
+    </div>
+</div>
+{% endblock %}

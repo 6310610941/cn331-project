@@ -54,3 +54,87 @@ class LoginPageTests(TestCase):
         login = self.client.login(username='wrong_user', password='wrong_pass')
         self.assertEqual(login, False)
 
+class ProfilePageTests(TestCase):
+    def setUp(self):
+        #create user
+        self.user = User.objects.create_user('test_user', password='test_pass')
+        
+
+    def test_profile_view_status_code(self):
+        """ profile view's status code is ok """
+        
+        c = Client()
+        c.login(username='test_user', password='test_pass')
+        response = c.get(reverse('users:profile'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_change_password_status_code(self):
+        """ change_password's status code is ok """
+
+        c = Client()
+        c.login(username='test_user', password='test_pass')
+        response = c.get(reverse('users:change_password'))
+        self.assertEqual(response.status_code, 200)
+    
+    def test_profile_form_1(self):
+        """ can edit username """
+        c = Client()
+        c.login(username='test_user', password='test_pass')
+        c.post(reverse('users:signup'), {'username': 'test_user', 'first_name': 'test_name', 'last_name': 'test_surname','email': 'test@cn331.com', 'password1': 'test_pass', 'password2': 'test_pass'})
+        c.post(reverse('users:profile'), {'username': 'edited_user', 'first_name': 'edited_name', 'last_name': 'edited_surname','email': 'edited@cn331.com'})
+        response = c.get(reverse('users:profile'))
+        self.assertContains(response, 'edited_user')
+
+
+    def test_profile_form_2(self):
+        """ can edit email """
+        c = Client()
+        c.login(username='test_user', password='test_pass')
+        c.post(reverse('users:signup'), {'username': 'test_user', 'first_name': 'test_name', 'last_name': 'test_surname','email': 'test@cn331.com', 'password1': 'test_pass', 'password2': 'test_pass'})
+        c.post(reverse('users:profile'), {'username': 'edited_user', 'first_name': 'edited_name', 'last_name': 'edited_surname','email': 'edited@cn331.com'})
+        response = c.get(reverse('users:profile'))
+        self.assertContains(response, 'edited@cn331.com')
+
+    def test_profile_form_3(self):
+        """ can edit name """
+        c = Client()
+        c.login(username='test_user', password='test_pass')
+        c.post(reverse('users:signup'), {'username': 'test_user', 'first_name': 'test_name', 'last_name': 'test_surname','email': 'test@cn331.com', 'password1': 'test_pass', 'password2': 'test_pass'})
+        c.post(reverse('users:profile'), {'username': 'edited_user', 'first_name': 'edited_name', 'last_name': 'edited_surname','email': 'edited@cn331.com'})
+        response = c.get(reverse('users:profile'))
+        self.assertContains(response, 'edited_name')
+
+
+    def test_profile_form_4(self):
+        """ can edit surname """
+        c = Client()
+        c.login(username='test_user', password='test_pass')
+        c.post(reverse('users:signup'), {'username': 'test_user', 'first_name': 'test_name', 'last_name': 'test_surname','email': 'test@cn331.com', 'password1': 'test_pass', 'password2': 'test_pass'})
+        c.post(reverse('users:profile'), {'username': 'edited_user', 'first_name': 'edited_name', 'last_name': 'edited_surname','email': 'edited@cn331.com'})
+        response = c.get(reverse('users:profile'))
+        self.assertContains(response, 'edited_surname')
+
+class ChangePasswordPageTests(TestCase):
+    def setUp(self):
+        #create user
+        self.user = User.objects.create_user('test_user', password='test_pass')
+
+    def test_change_password(self):
+        """ can change password """
+        c = Client()
+        c.login(username='test_user', password='test_pass')
+        c.post(reverse('users:change_password'), {'old_password': 'test_pass', 'new_password1': 'new_pass', 'new_password2': 'new_pass'})
+        c.logout()
+        c.login(username='test_user', password='new_pass')
+        response = c.get(reverse('users:profile'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_wrong_password(self):
+        """ wrong password """
+        c = Client()
+        c.login(username='test_user', password='test_pass')
+        c.post(reverse('users:change_password'), {'old_password': 'wrong_pass', 'new_password1': 'new_pass', 'new_password2': 'new_pass'})
+        c.logout()
+        c.login(username='test_user', password='new_pass')
+        response = c.get(reverse('users:profile'))
+        self.assertEqual(response.status_code, 302)

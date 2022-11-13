@@ -1,34 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html lang='en','th'>
 <head>
 <title>BTS For Fun</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href="https://fonts.googleapis.com/css2?family=K2D:ital,wght@0,100;0,200;0,300;1,300&display=swap" rel="stylesheet">
 <style>
 body {font-family: "Times New Roman", Georgia, Serif;}
 h1, h2, h3, h4, h5, h6 {
   font-family: "Playfair Display";
   letter-spacing: 5px;
 }
+li{
+  font-family:'K2D', Georgia, Serif;
+  
+  
+}
 </style>
 </head>
 <body>
 
 <!-- Navbar (sit on top) -->
-<div class="w3-top">
-    <div class="w3-bar w3-white w3-padding w3-card" style="letter-spacing:4px;">
-                <a href="{% url 'about:index' %}" class="w3-bar-item w3-button">BTS For Fun</a>
-                <!-- Right-sided navbar links. Hide them on small screens -->
-                <div class="w3-right w3-hide-small">
-                    <a href="{% url 'about:about_us' %}" class="w3-bar-item w3-button">About Us</a>
-                    <a href="{% url 'bts_for_fun:index' %}" class="w3-bar-item w3-button">List of Stations</a>
-                    <a href="{% url 'about:index' %}" class="w3-bar-item w3-button">Fare</a>
-                    <a href="{% url 'users:login' %}" class="w3-bar-item w3-button">Log in</a>
-                    <a href="{% url 'users:signup' %}" class="w3-bar-item w3-button">Sign up</a>
+
+{% if  user.is_authenticated %}
+        <body>
+            <!-- Navbar (sit on top) -->
+            <div class="w3-top">
+                <div class="w3-bar w3-white w3-padding w3-card" style="letter-spacing:4px;">
+                    <a href="{% url 'about:index' %}" class="w3-bar-item w3-button">BTS For Fun</a>
+                    <!-- Right-sided navbar links. Hide them on small screens -->
+                    
+                    <div class="w3-right w3-hide-small">
+                        <a href="{% url 'about:about_us' %}" class="w3-bar-item w3-button">About Us</a>
+                        <a href="{% url 'bts_for_fun:index' %}" class="w3-bar-item w3-button">List of Stations</a>
+                        <a href="{% url 'fare:index' %}" class="w3-bar-item w3-button">Fare</a>
+                        <a href="{% url 'users:profile' %}" class="w3-bar-item w3-button">Profile</a>
+                        <a href="{% url 'users:logout' %}" class="w3-bar-item w3-button">Log out</a>
+                    </div>
                 </div>
             </div>
-  </div>
+    {% else %}
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-padding w3-card" style="letter-spacing:4px;">
+            <a href="{% url 'about:index' %}" class="w3-bar-item w3-button">BTS For Fun</a>
+            <!-- Right-sided navbar links. Hide them on small screens -->
+            
+            <div class="w3-right w3-hide-small">
+                <a href="{% url 'about:about_us' %}" class="w3-bar-item w3-button">About Us</a>
+                <a href="{% url 'bts_for_fun:index' %}" class="w3-bar-item w3-button">List of Stations</a>
+                <a href="{% url 'fare:index' %}" class="w3-bar-item w3-button">Fare</a>
+                <a href="{% url 'users:login' %}" class="w3-bar-item w3-button">Log in</a>
+                <a href="{% url 'users:signup' %}" class="w3-bar-item w3-button">Sign up</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
 
 <!-- Header -->
 <header class="w3-display-container w3-content w3-wide" style="max-width:1600px;min-width:500px" id="home">
@@ -47,7 +75,7 @@ h1, h2, h3, h4, h5, h6 {
                 <li>นางสาวชนาธินาถ พิศประเทือง 6310610941</li>
                 <li>นางสาวอรจิรา วงศ์พลกานันท์ 6310611022</li>
                 <li>นายภัทรกร แก้วชูกุล 6310611030</li>
-                <li>นางสาวธัญรดี นามบรรเทิง 6310682593 เอนไซม์</li>
+                <li>นางสาวธัญรดี นามบรรเทิง 6310682593 </li>
             </ul>
         </body>
         <h1> Link </h1>

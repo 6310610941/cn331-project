@@ -1,0 +1,29 @@
+{% extends 'bts_for_fun/layout.html' %}
+{% block body %}
+<br>
+<br>
+<p2 class='un'>Welcome, {{ user.username }}</p2>
+<center>
+<div class="main" >    
+<br>
+<br>
+<br>
+<br>
+<br>
+<p1 class='un'>คำนวณค่าโดยสาร</p1>
+<br>
+<br>
+<br>
+<br>
+    <p2 class='un'>สถานีต้นทาง : {{ entry }}</p2>
+    <br>
+    <br>
+    <p2 class='un'>สถานีปลายทาง : {{ destination }}</p2>
+    <br>
+    <br>
+    <p2 class='un'>ค่าโดยสารทั้งหมด {{ result }} บาท</p2>
+</center>
+</div>
+
+{% endblock %}
+

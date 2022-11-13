@@ -1,0 +1,42 @@
+{% extends 'bts_for_fun/layout.html' %}
+{% block body %}
+<br>
+<br>
+<p2 class='un'>Welcome, {{ user.username }}</p2>
+<center>
+<p1>คำนวณค่าโดยสาร</p1>
+</center>
+<br>
+
+<div class="select animated zoomIn">
+  <form align="center" action="{% url 'fare:result' %}" method="POST">
+    {% csrf_token %}
+    <p2>สถานีต้นทาง</p2><br>
+    <select
+      name="entry"
+      id=""
+    >
+      {% for entry in stations %}
+      <option value="{{ entry.id }}">
+        {{ entry }}
+      </option>
+      {% endfor %}
+    </select><br>
+
+    <p2>สถานีปลายทาง</p2><br>
+    <select
+      name="destination"
+      id=""
+    >
+      {% for destination in stations %}
+      <option value="{{ destination.id }}">
+        {{ destination }}
+      </option>
+      {% endfor %}
+    </select><br>
+      <br>
+    <input class="submit" type="submit" value="Submit">
+  </form>
+</div>
+
+{% endblock %}
