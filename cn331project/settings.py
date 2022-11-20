@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'bts_for_fun',
     'fare',
     'about',
+    'post',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
